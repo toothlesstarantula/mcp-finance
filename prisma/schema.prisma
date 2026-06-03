@@ -1,0 +1,192 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PaymentMethod {
+  CASH
+  CARD_NU
+  CARD_BBVA
+  CARD_HSBC_VIVA
+}
+
+enum ExpenseSource {
+  MANUAL
+  IMPORT
+}
+
+enum ClassificationMethod {
+  ALIAS
+  RULE
+  DEFAULT
+  LLM
+}
+
+enum RuleMatchType {
+  CONTAINS
+  REGEX
+  MERCHANT_ID
+}
+
+enum EnvelopePeriod {
+  WEEKLY
+  MONTHLY
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  apiKeys         ApiKey[]
+  categories      Category[]
+  merchants       Merchant[]
+  merchantAliases MerchantAlias[]
+  expenses        Expense[]
+  rules           ClassificationRule[]
+  envelopes       BudgetEnvelope[]
+}
+
+model ApiKey {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label      String
+  keyHash    String   @unique
+  lastUsedAt DateTime?
+  createdAt  DateTime @default(now())
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  parentId  String?
+  parent    Category? @relation("CategoryParent", fields: [parentId], references: [id], onDelete: SetNull)
+  children  Category[] @relation("CategoryParent")
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+
+  expenses           Expense[]
+  defaultMerchants   Merchant[] @relation("MerchantDefaultCategory")
+  targetRules        ClassificationRule[] @relation("RuleTargetCategory")
+  envelopeCategories BudgetEnvelopeCategory[]
+
+  @@index([userId])
+  @@unique([userId, name, parentId])
+}
+
+model Merchant {
+  id                String    @id @default(uuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nameCanonical     String
+  defaultCategoryId String?
+  defaultCategory   Category? @relation("MerchantDefaultCategory", fields: [defaultCategoryId], references: [id], onDelete: SetNull)
+  createdAt         DateTime  @default(now())
+
+  aliases  MerchantAlias[]
+  expenses Expense[]
+
+  @@index([userId])
+}
+
+model MerchantAlias {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  merchantId String
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  aliasText  String
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, aliasText])
+  @@index([userId, merchantId])
+}
+
+model Expense {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  source     ExpenseSource
+  occurredAt DateTime
+  postedAt   DateTime?
+
+  amountCents Int
+  currency    String @default("MXN")
+
+  merchantRaw String
+  merchantId  String?
+  merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: SetNull)
+
+  description String?
+  rawText      String?
+
+  paymentMethod PaymentMethod
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  confidence           Float?
+  classificationMethod ClassificationMethod?
+
+  externalId String?
+  createdAt  DateTime @default(now())
+
+  @@index([userId, occurredAt])
+  @@index([userId, categoryId, occurredAt])
+  @@index([userId, merchantId, occurredAt])
+  @@unique([userId, externalId])
+}
+
+model ClassificationRule {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  priority  Int
+  matchType RuleMatchType
+  pattern   String
+
+  targetCategoryId String
+  targetCategory   Category @relation("RuleTargetCategory", fields: [targetCategoryId], references: [id], onDelete: Cascade)
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([userId, priority])
+}
+
+model BudgetEnvelope {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name       String
+  period     EnvelopePeriod
+  amountCents Int
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  categories BudgetEnvelopeCategory[]
+
+  @@index([userId])
+  @@unique([userId, name])
+}
+
+model BudgetEnvelopeCategory {
+  id String @id @default(uuid())
+
+  envelopeId String
+  envelope   BudgetEnvelope @relation(fields: [envelopeId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([envelopeId, categoryId])
+}

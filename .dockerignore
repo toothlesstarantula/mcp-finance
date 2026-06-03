@@ -1,0 +1,11 @@
+node_modules
+dist
+generated
+.git
+.gitignore
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.env
+.env.*
+docker-compose*.yml
