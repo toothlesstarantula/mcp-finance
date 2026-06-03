@@ -12,7 +12,7 @@ RUN apt-get update -y && \
 
 COPY . .
 RUN bun install
-RUN bun prisma:deploy
+# prisma:generate no necesita DB; las migraciones se ejecutan en runtime
 RUN bun prisma:generate
 RUN bun run build
 
@@ -29,4 +29,5 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 
 EXPOSE 8787
-CMD ["bun","start"]
+# En runtime Dokploy ya inyecta DATABASE_URL real, así que migrate deploy funciona
+CMD ["sh", "-c", "bun prisma:deploy && bun start"]
