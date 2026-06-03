@@ -12,7 +12,7 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/*
 
 COPY . .
-RUN bun install --production=false
+RUN bun install 
 
 ENV DATABASE_URL=${DATABASE_URL}
 RUN bun prisma:deploy
