@@ -1,6 +1,9 @@
 FROM node:24-slim AS builder
 WORKDIR /app
 
+# Dokploy debe inyectar este build-arg (misma key que la env de runtime)
+ARG DATABASE_URL
+
 #instalar bun
 RUN npm install -g bun
 
@@ -12,7 +15,11 @@ RUN apt-get update -y && \
 
 COPY . .
 RUN bun install
-# prisma:generate no necesita DB; las migraciones se ejecutan en runtime
+
+# Hacemos visible la URL para los procesos siguientes del build
+ENV DATABASE_URL=${DATABASE_URL}
+
+RUN bun prisma:deploy
 RUN bun prisma:generate
 RUN bun run build
 
@@ -29,5 +36,4 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 
 EXPOSE 8787
-# En runtime Dokploy ya inyecta DATABASE_URL real, así que migrate deploy funciona
-CMD ["sh", "-c", "bun prisma:deploy && bun start"]
+CMD ["bun","start"]

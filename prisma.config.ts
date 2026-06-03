@@ -11,6 +11,7 @@ export default defineConfig({
     // Prisma ORM v7 requiere que el URL exista al cargar el config.
     // Permitimos fallback para que `prisma generate` funcione sin .env local.
     url:
+      process.env.DATABASE_URL ??
       process.env.DATABASE_URL_FINANCE ??
       'postgresql://postgres:postgres@localhost:5432/finance_db'
   }
