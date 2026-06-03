@@ -4,6 +4,12 @@ WORKDIR /app
 #instalar bun
 RUN npm install -g bun
 
+# Prisma 7 ya intenta autodetectar, pero en node:24-slim no encuentra
+# libssl/openssl y cae al default. Lo instalamos explícitamente.
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends openssl ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY . .
 RUN bun install
 RUN bun prisma:deploy
