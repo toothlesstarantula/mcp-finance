@@ -34,6 +34,10 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/generated ./generated
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+# Copy package.json to execute npm/bun commands in production
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/bun.lockb ./bun.lockb
+
 
 EXPOSE 8787
 CMD ["bun","start"]
