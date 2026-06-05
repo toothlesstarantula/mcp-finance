@@ -9,7 +9,7 @@ const EnvSchema = z.object({
 
   // Providers
   OPENROUTER_API_KEY: z.string().optional(),
-  OPENROUTER_MODEL: z.string().default("gpt-oss-120-free"),
+  OPENROUTER_MODEL: z.string().default("openai/gpt-oss-120b:free"),
 
   // Databases
   DATABASE_URL_FINANCE: z
