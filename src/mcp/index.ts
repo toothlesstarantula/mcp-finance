@@ -1,6 +1,5 @@
 import type { Hono } from "hono";
 import { cors } from "hono/cors";
-import { randomUUID } from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import { authenticateApiKey } from "../auth/apiKey.js";
@@ -27,14 +26,48 @@ export function createMcpServerForUser(userId: string): McpServer {
   return server;
 }
 
-interface McpSession {
+interface McpInstance {
+  server: McpServer;
   transport: WebStandardStreamableHTTPServerTransport;
 }
 
-const sessions = new Map<string, McpSession>();
+/**
+ * Cache de (McpServer + transport) por userId.
+ *
+ * El transport se crea en STATELESS mode (sessionIdGenerator: undefined):
+ * - No se genera ni requiere `mcp-session-id`.
+ * - Cada request es independiente → compatible con clientes que no
+ *   propagan el session ID (TRAE, Claude Desktop, etc.).
+ * - El userId ya viene en cada request vía el header `x-api-key`, así que
+ *   no necesitamos estado de sesión.
+ *
+ * El McpServer se cachea por userId para no re-registrar tools en cada request.
+ */
+const instances = new Map<string, McpInstance>();
+
+function getOrCreateInstance(userId: string): McpInstance {
+  const cached = instances.get(userId);
+  if (cached) return cached;
+
+  const transport = new WebStandardStreamableHTTPServerTransport({
+    // STATELESS: sin sessionIdGenerator. El server no emite ni exige
+    // el header `mcp-session-id`.
+    sessionIdGenerator: undefined,
+  });
+
+  const server = createMcpServerForUser(userId);
+  // Conectar server ↔ transport (idempotente en stateless mode).
+  server.connect(transport);
+
+  const instance: McpInstance = { server, transport };
+  instances.set(userId, instance);
+  return instance;
+}
 
 export function mountMcp(app: Hono) {
-  // CORS: requerido por clientes MCP HTTP (headers de sesión/protocolo).
+  // CORS: requerido por clientes MCP HTTP (browser-based y Electron).
+  // Nota: en stateless mode no exponemos `mcp-session-id`, pero lo dejamos
+  // por compatibilidad con clientes stateful que aún lo envíen.
   const mcpCors = cors({
     origin: "*",
     allowMethods: ["GET", "POST", "DELETE", "OPTIONS"],
@@ -59,26 +92,7 @@ export function mountMcp(app: Hono) {
     const auth = await authenticateApiKey(apiKeyPlain);
     if (!auth) return c.text("Unauthorized", 401);
 
-    const incomingSessionId = c.req.header("mcp-session-id");
-    let session = incomingSessionId
-      ? sessions.get(incomingSessionId)
-      : undefined;
-
-    if (!session) {
-      const transport = new WebStandardStreamableHTTPServerTransport({
-        sessionIdGenerator: () => randomUUID(),
-        onsessioninitialized: (id) => {
-          sessions.set(id, { transport });
-        },
-        onsessionclosed: (id) => {
-          sessions.delete(id);
-        },
-      });
-      const server = createMcpServerForUser(auth.userId);
-      await server.connect(transport);
-      session = { transport };
-    }
-
-    return session.transport.handleRequest(c.req.raw);
+    const instance = getOrCreateInstance(auth.userId);
+    return instance.transport.handleRequest(c.req.raw);
   });
 }
