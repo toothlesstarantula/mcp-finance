@@ -59,7 +59,8 @@ export const ModelName = {
   Expense: 'Expense',
   ClassificationRule: 'ClassificationRule',
   BudgetEnvelope: 'BudgetEnvelope',
-  BudgetEnvelopeCategory: 'BudgetEnvelopeCategory'
+  BudgetEnvelopeCategory: 'BudgetEnvelopeCategory',
+  ExpenseDraft: 'ExpenseDraft'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -189,6 +190,23 @@ export const BudgetEnvelopeCategoryScalarFieldEnum = {
 } as const
 
 export type BudgetEnvelopeCategoryScalarFieldEnum = (typeof BudgetEnvelopeCategoryScalarFieldEnum)[keyof typeof BudgetEnvelopeCategoryScalarFieldEnum]
+
+
+export const ExpenseDraftScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  merchantRaw: 'merchantRaw',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  occurredAt: 'occurredAt',
+  paymentMethod: 'paymentMethod',
+  description: 'description',
+  rawText: 'rawText',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type ExpenseDraftScalarFieldEnum = (typeof ExpenseDraftScalarFieldEnum)[keyof typeof ExpenseDraftScalarFieldEnum]
 
 
 export const SortOrder = {

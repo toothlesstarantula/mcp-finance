@@ -86,3 +86,8 @@ export type BudgetEnvelope = Prisma.BudgetEnvelopeModel
  * 
  */
 export type BudgetEnvelopeCategory = Prisma.BudgetEnvelopeCategoryModel
+/**
+ * Model ExpenseDraft
+ * 
+ */
+export type ExpenseDraft = Prisma.ExpenseDraftModel

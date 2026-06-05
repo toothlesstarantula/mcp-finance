@@ -165,6 +165,7 @@ export type UserWhereInput = {
   expenses?: Prisma.ExpenseListRelationFilter
   rules?: Prisma.ClassificationRuleListRelationFilter
   envelopes?: Prisma.BudgetEnvelopeListRelationFilter
+  drafts?: Prisma.ExpenseDraftListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -177,6 +178,7 @@ export type UserOrderByWithRelationInput = {
   expenses?: Prisma.ExpenseOrderByRelationAggregateInput
   rules?: Prisma.ClassificationRuleOrderByRelationAggregateInput
   envelopes?: Prisma.BudgetEnvelopeOrderByRelationAggregateInput
+  drafts?: Prisma.ExpenseDraftOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -192,6 +194,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   expenses?: Prisma.ExpenseListRelationFilter
   rules?: Prisma.ClassificationRuleListRelationFilter
   envelopes?: Prisma.BudgetEnvelopeListRelationFilter
+  drafts?: Prisma.ExpenseDraftListRelationFilter
 }, "id">
 
 export type UserOrderByWithAggregationInput = {
@@ -220,6 +223,7 @@ export type UserCreateInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -232,6 +236,7 @@ export type UserUncheckedCreateInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -244,6 +249,7 @@ export type UserUpdateInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -256,6 +262,7 @@ export type UserUncheckedUpdateInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -399,6 +406,20 @@ export type UserUpdateOneRequiredWithoutEnvelopesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEnvelopesInput, Prisma.UserUpdateWithoutEnvelopesInput>, Prisma.UserUncheckedUpdateWithoutEnvelopesInput>
 }
 
+export type UserCreateNestedOneWithoutDraftsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDraftsInput, Prisma.UserUncheckedCreateWithoutDraftsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDraftsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDraftsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDraftsInput, Prisma.UserUncheckedCreateWithoutDraftsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDraftsInput
+  upsert?: Prisma.UserUpsertWithoutDraftsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDraftsInput, Prisma.UserUpdateWithoutDraftsInput>, Prisma.UserUncheckedUpdateWithoutDraftsInput>
+}
+
 export type UserCreateWithoutApiKeysInput = {
   id?: string
   createdAt?: Date | string
@@ -408,6 +429,7 @@ export type UserCreateWithoutApiKeysInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApiKeysInput = {
@@ -419,6 +441,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApiKeysInput = {
@@ -446,6 +469,7 @@ export type UserUpdateWithoutApiKeysInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApiKeysInput = {
@@ -457,6 +481,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -468,6 +493,7 @@ export type UserCreateWithoutCategoriesInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -479,6 +505,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -506,6 +533,7 @@ export type UserUpdateWithoutCategoriesInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -517,6 +545,7 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMerchantsInput = {
@@ -528,6 +557,7 @@ export type UserCreateWithoutMerchantsInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMerchantsInput = {
@@ -539,6 +569,7 @@ export type UserUncheckedCreateWithoutMerchantsInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMerchantsInput = {
@@ -566,6 +597,7 @@ export type UserUpdateWithoutMerchantsInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMerchantsInput = {
@@ -577,6 +609,7 @@ export type UserUncheckedUpdateWithoutMerchantsInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMerchantAliasesInput = {
@@ -588,6 +621,7 @@ export type UserCreateWithoutMerchantAliasesInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMerchantAliasesInput = {
@@ -599,6 +633,7 @@ export type UserUncheckedCreateWithoutMerchantAliasesInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMerchantAliasesInput = {
@@ -626,6 +661,7 @@ export type UserUpdateWithoutMerchantAliasesInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMerchantAliasesInput = {
@@ -637,6 +673,7 @@ export type UserUncheckedUpdateWithoutMerchantAliasesInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutExpensesInput = {
@@ -648,6 +685,7 @@ export type UserCreateWithoutExpensesInput = {
   merchantAliases?: Prisma.MerchantAliasCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExpensesInput = {
@@ -659,6 +697,7 @@ export type UserUncheckedCreateWithoutExpensesInput = {
   merchantAliases?: Prisma.MerchantAliasUncheckedCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExpensesInput = {
@@ -686,6 +725,7 @@ export type UserUpdateWithoutExpensesInput = {
   merchantAliases?: Prisma.MerchantAliasUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExpensesInput = {
@@ -697,6 +737,7 @@ export type UserUncheckedUpdateWithoutExpensesInput = {
   merchantAliases?: Prisma.MerchantAliasUncheckedUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRulesInput = {
@@ -708,6 +749,7 @@ export type UserCreateWithoutRulesInput = {
   merchantAliases?: Prisma.MerchantAliasCreateNestedManyWithoutUserInput
   expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRulesInput = {
@@ -719,6 +761,7 @@ export type UserUncheckedCreateWithoutRulesInput = {
   merchantAliases?: Prisma.MerchantAliasUncheckedCreateNestedManyWithoutUserInput
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRulesInput = {
@@ -746,6 +789,7 @@ export type UserUpdateWithoutRulesInput = {
   merchantAliases?: Prisma.MerchantAliasUpdateManyWithoutUserNestedInput
   expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRulesInput = {
@@ -757,6 +801,7 @@ export type UserUncheckedUpdateWithoutRulesInput = {
   merchantAliases?: Prisma.MerchantAliasUncheckedUpdateManyWithoutUserNestedInput
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
   envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEnvelopesInput = {
@@ -768,6 +813,7 @@ export type UserCreateWithoutEnvelopesInput = {
   merchantAliases?: Prisma.MerchantAliasCreateNestedManyWithoutUserInput
   expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEnvelopesInput = {
@@ -779,6 +825,7 @@ export type UserUncheckedCreateWithoutEnvelopesInput = {
   merchantAliases?: Prisma.MerchantAliasUncheckedCreateNestedManyWithoutUserInput
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
   rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
+  drafts?: Prisma.ExpenseDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEnvelopesInput = {
@@ -806,6 +853,7 @@ export type UserUpdateWithoutEnvelopesInput = {
   merchantAliases?: Prisma.MerchantAliasUpdateManyWithoutUserNestedInput
   expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEnvelopesInput = {
@@ -817,6 +865,71 @@ export type UserUncheckedUpdateWithoutEnvelopesInput = {
   merchantAliases?: Prisma.MerchantAliasUncheckedUpdateManyWithoutUserNestedInput
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
   rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
+  drafts?: Prisma.ExpenseDraftUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDraftsInput = {
+  id?: string
+  createdAt?: Date | string
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  merchants?: Prisma.MerchantCreateNestedManyWithoutUserInput
+  merchantAliases?: Prisma.MerchantAliasCreateNestedManyWithoutUserInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
+  rules?: Prisma.ClassificationRuleCreateNestedManyWithoutUserInput
+  envelopes?: Prisma.BudgetEnvelopeCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDraftsInput = {
+  id?: string
+  createdAt?: Date | string
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  merchants?: Prisma.MerchantUncheckedCreateNestedManyWithoutUserInput
+  merchantAliases?: Prisma.MerchantAliasUncheckedCreateNestedManyWithoutUserInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
+  rules?: Prisma.ClassificationRuleUncheckedCreateNestedManyWithoutUserInput
+  envelopes?: Prisma.BudgetEnvelopeUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDraftsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDraftsInput, Prisma.UserUncheckedCreateWithoutDraftsInput>
+}
+
+export type UserUpsertWithoutDraftsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDraftsInput, Prisma.UserUncheckedUpdateWithoutDraftsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDraftsInput, Prisma.UserUncheckedCreateWithoutDraftsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDraftsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDraftsInput, Prisma.UserUncheckedUpdateWithoutDraftsInput>
+}
+
+export type UserUpdateWithoutDraftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  merchants?: Prisma.MerchantUpdateManyWithoutUserNestedInput
+  merchantAliases?: Prisma.MerchantAliasUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
+  rules?: Prisma.ClassificationRuleUpdateManyWithoutUserNestedInput
+  envelopes?: Prisma.BudgetEnvelopeUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDraftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  merchants?: Prisma.MerchantUncheckedUpdateManyWithoutUserNestedInput
+  merchantAliases?: Prisma.MerchantAliasUncheckedUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
+  rules?: Prisma.ClassificationRuleUncheckedUpdateManyWithoutUserNestedInput
+  envelopes?: Prisma.BudgetEnvelopeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -832,6 +945,7 @@ export type UserCountOutputType = {
   expenses: number
   rules: number
   envelopes: number
+  drafts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -842,6 +956,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   expenses?: boolean | UserCountOutputTypeCountExpensesArgs
   rules?: boolean | UserCountOutputTypeCountRulesArgs
   envelopes?: boolean | UserCountOutputTypeCountEnvelopesArgs
+  drafts?: boolean | UserCountOutputTypeCountDraftsArgs
 }
 
 /**
@@ -903,6 +1018,13 @@ export type UserCountOutputTypeCountEnvelopesArgs<ExtArgs extends runtime.Types.
   where?: Prisma.BudgetEnvelopeWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDraftsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExpenseDraftWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -914,6 +1036,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   expenses?: boolean | Prisma.User$expensesArgs<ExtArgs>
   rules?: boolean | Prisma.User$rulesArgs<ExtArgs>
   envelopes?: boolean | Prisma.User$envelopesArgs<ExtArgs>
+  drafts?: boolean | Prisma.User$draftsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -941,6 +1064,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   expenses?: boolean | Prisma.User$expensesArgs<ExtArgs>
   rules?: boolean | Prisma.User$rulesArgs<ExtArgs>
   envelopes?: boolean | Prisma.User$envelopesArgs<ExtArgs>
+  drafts?: boolean | Prisma.User$draftsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -956,6 +1080,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     expenses: Prisma.$ExpensePayload<ExtArgs>[]
     rules: Prisma.$ClassificationRulePayload<ExtArgs>[]
     envelopes: Prisma.$BudgetEnvelopePayload<ExtArgs>[]
+    drafts: Prisma.$ExpenseDraftPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1361,6 +1486,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   expenses<T extends Prisma.User$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rules<T extends Prisma.User$rulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassificationRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   envelopes<T extends Prisma.User$envelopesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$envelopesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BudgetEnvelopePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  drafts<T extends Prisma.User$draftsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$draftsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpenseDraftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1950,6 +2076,30 @@ export type User$envelopesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.BudgetEnvelopeScalarFieldEnum | Prisma.BudgetEnvelopeScalarFieldEnum[]
+}
+
+/**
+ * User.drafts
+ */
+export type User$draftsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExpenseDraft
+   */
+  select?: Prisma.ExpenseDraftSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExpenseDraft
+   */
+  omit?: Prisma.ExpenseDraftOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExpenseDraftInclude<ExtArgs> | null
+  where?: Prisma.ExpenseDraftWhereInput
+  orderBy?: Prisma.ExpenseDraftOrderByWithRelationInput | Prisma.ExpenseDraftOrderByWithRelationInput[]
+  cursor?: Prisma.ExpenseDraftWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExpenseDraftScalarFieldEnum | Prisma.ExpenseDraftScalarFieldEnum[]
 }
 
 /**

@@ -392,7 +392,8 @@ export const ModelName = {
   Expense: 'Expense',
   ClassificationRule: 'ClassificationRule',
   BudgetEnvelope: 'BudgetEnvelope',
-  BudgetEnvelopeCategory: 'BudgetEnvelopeCategory'
+  BudgetEnvelopeCategory: 'BudgetEnvelopeCategory',
+  ExpenseDraft: 'ExpenseDraft'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "apiKey" | "category" | "merchant" | "merchantAlias" | "expense" | "classificationRule" | "budgetEnvelope" | "budgetEnvelopeCategory"
+    modelProps: "user" | "apiKey" | "category" | "merchant" | "merchantAlias" | "expense" | "classificationRule" | "budgetEnvelope" | "budgetEnvelopeCategory" | "expenseDraft"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1078,6 +1079,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ExpenseDraft: {
+      payload: Prisma.$ExpenseDraftPayload<ExtArgs>
+      fields: Prisma.ExpenseDraftFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ExpenseDraftFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ExpenseDraftFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>
+        }
+        findFirst: {
+          args: Prisma.ExpenseDraftFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ExpenseDraftFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>
+        }
+        findMany: {
+          args: Prisma.ExpenseDraftFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>[]
+        }
+        create: {
+          args: Prisma.ExpenseDraftCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>
+        }
+        createMany: {
+          args: Prisma.ExpenseDraftCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ExpenseDraftCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>[]
+        }
+        delete: {
+          args: Prisma.ExpenseDraftDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>
+        }
+        update: {
+          args: Prisma.ExpenseDraftUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>
+        }
+        deleteMany: {
+          args: Prisma.ExpenseDraftDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ExpenseDraftUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ExpenseDraftUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>[]
+        }
+        upsert: {
+          args: Prisma.ExpenseDraftUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExpenseDraftPayload>
+        }
+        aggregate: {
+          args: Prisma.ExpenseDraftAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateExpenseDraft>
+        }
+        groupBy: {
+          args: Prisma.ExpenseDraftGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExpenseDraftGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ExpenseDraftCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExpenseDraftCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1228,6 +1303,23 @@ export const BudgetEnvelopeCategoryScalarFieldEnum = {
 } as const
 
 export type BudgetEnvelopeCategoryScalarFieldEnum = (typeof BudgetEnvelopeCategoryScalarFieldEnum)[keyof typeof BudgetEnvelopeCategoryScalarFieldEnum]
+
+
+export const ExpenseDraftScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  merchantRaw: 'merchantRaw',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  occurredAt: 'occurredAt',
+  paymentMethod: 'paymentMethod',
+  description: 'description',
+  rawText: 'rawText',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type ExpenseDraftScalarFieldEnum = (typeof ExpenseDraftScalarFieldEnum)[keyof typeof ExpenseDraftScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1511,6 +1603,7 @@ export type GlobalOmitConfig = {
   classificationRule?: Prisma.ClassificationRuleOmit
   budgetEnvelope?: Prisma.BudgetEnvelopeOmit
   budgetEnvelopeCategory?: Prisma.BudgetEnvelopeCategoryOmit
+  expenseDraft?: Prisma.ExpenseDraftOmit
 }
 
 /* Types for Logging */

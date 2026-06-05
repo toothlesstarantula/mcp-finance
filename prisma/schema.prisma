@@ -48,36 +48,37 @@ model User {
   expenses        Expense[]
   rules           ClassificationRule[]
   envelopes       BudgetEnvelope[]
+  drafts          ExpenseDraft[]
 }
 
 model ApiKey {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   label      String
-  keyHash    String   @unique
+  keyHash    String    @unique
   lastUsedAt DateTime?
-  createdAt  DateTime @default(now())
+  createdAt  DateTime  @default(now())
 }
 
 model Category {
-  id        String    @id @default(uuid())
+  id        String     @id @default(uuid())
   userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   name      String
   parentId  String?
-  parent    Category? @relation("CategoryParent", fields: [parentId], references: [id], onDelete: SetNull)
+  parent    Category?  @relation("CategoryParent", fields: [parentId], references: [id], onDelete: SetNull)
   children  Category[] @relation("CategoryParent")
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now())
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
 
   expenses           Expense[]
-  defaultMerchants   Merchant[] @relation("MerchantDefaultCategory")
-  targetRules        ClassificationRule[] @relation("RuleTargetCategory")
+  defaultMerchants   Merchant[]               @relation("MerchantDefaultCategory")
+  targetRules        ClassificationRule[]     @relation("RuleTargetCategory")
   envelopeCategories BudgetEnvelopeCategory[]
 
-  @@index([userId])
   @@unique([userId, name, parentId])
+  @@index([userId])
 }
 
 model Merchant {
@@ -125,7 +126,7 @@ model Expense {
   merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: SetNull)
 
   description String?
-  rawText      String?
+  rawText     String?
 
   paymentMethod PaymentMethod
 
@@ -138,10 +139,10 @@ model Expense {
   externalId String?
   createdAt  DateTime @default(now())
 
+  @@unique([userId, externalId])
   @@index([userId, occurredAt])
   @@index([userId, categoryId, occurredAt])
   @@index([userId, merchantId, occurredAt])
-  @@unique([userId, externalId])
 }
 
 model ClassificationRule {
@@ -167,16 +168,16 @@ model BudgetEnvelope {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  name       String
-  period     EnvelopePeriod
+  name        String
+  period      EnvelopePeriod
   amountCents Int
-  isActive   Boolean  @default(true)
-  createdAt  DateTime @default(now())
+  isActive    Boolean        @default(true)
+  createdAt   DateTime       @default(now())
 
   categories BudgetEnvelopeCategory[]
 
-  @@index([userId])
   @@unique([userId, name])
+  @@index([userId])
 }
 
 model BudgetEnvelopeCategory {
@@ -189,4 +190,24 @@ model BudgetEnvelopeCategory {
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([envelopeId, categoryId])
+}
+
+model ExpenseDraft {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  merchantRaw   String?
+  amountCents   Int?
+  currency      String         @default("MXN")
+  occurredAt    DateTime?
+  paymentMethod PaymentMethod?
+  description   String?
+  rawText       String?
+
+  createdAt DateTime @default(now())
+  // TTL: el draft expira y se considera inválido pasado este tiempo.
+  expiresAt DateTime
+
+  @@index([userId, expiresAt])
 }
