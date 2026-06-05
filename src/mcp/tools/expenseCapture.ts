@@ -56,7 +56,7 @@ export function registerExpenseCaptureTool(server: McpServer, userId: string) {
         rawText: args.text ?? null
       };
 
-      saveDraft(draft);
+      await saveDraft(draft);
 
       const questions = buildDraftQuestions(draft);
       return toolOk({
@@ -73,7 +73,9 @@ export function registerExpenseCaptureTool(server: McpServer, userId: string) {
           },
           questions
         },
-        text: questions.length ? 'Borrador creado; faltan datos.' : 'Borrador creado.'
+        text: questions.length
+          ? `Borrador ${draft.draftId} creado; faltan datos: ${questions.join(' ')}`
+          : `Borrador ${draft.draftId} creado.`
       });
     }
   );

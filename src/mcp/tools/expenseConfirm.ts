@@ -46,7 +46,7 @@ export function registerExpenseConfirmTool(server: McpServer, userId: string) {
       })
     },
     async (args) => {
-      const draft = getDraft(userId, args.draftId);
+      const draft = await getDraft(userId, args.draftId);
       if (!draft) return toolError(`No existe borrador draftId=${args.draftId}`);
 
       // Aplicar overrides (similar a expense.correct)
@@ -74,7 +74,7 @@ export function registerExpenseConfirmTool(server: McpServer, userId: string) {
         if (t) draft.currency = t;
       }
 
-      saveDraft(draft);
+      await saveDraft(draft);
 
       const questions = buildDraftQuestions(draft);
       if (questions.length) {
@@ -113,7 +113,7 @@ export function registerExpenseConfirmTool(server: McpServer, userId: string) {
 
       const budget = await budgetStatus(userId, occurredAt);
 
-      deleteDraft(userId, args.draftId);
+      await deleteDraft(userId, args.draftId);
 
       return toolOk({
         structuredContent: {
